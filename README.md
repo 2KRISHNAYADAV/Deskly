@@ -36,8 +36,6 @@
 
 <br/><br/>
 
-<img src="assets/screenshots/dashboard-preview.png" width="90%" alt="Deskly Dashboard Preview"/>
-
 <br/>
 
 <p>
@@ -68,6 +66,50 @@
 - [References](#references)
 
 ---
+<!-- Glass Style Announcement -->
+
+<div align="center">
+
+# 🚀 Deskly is now on the Microsoft Store
+
+<p>
+Monitor your screen time, improve productivity, and build healthier digital habits.
+</p>
+
+<br>
+
+<a href="https://apps.microsoft.com/detail/9N3XS93TJ82Q?hl=en-us&gl=IN&ocid=pdpshare">
+  <img src="https://img.shields.io/badge/⬇️%20Download%20Deskly-Microsoft%20Store-0078D4?style=for-the-badge&logo=microsoft&logoColor=white" />
+</a>
+
+<a href="https://apps.microsoft.com/detail/9N3XS93TJ82Q?hl=en-us&gl=IN&ocid=pdpshare">
+  <img src="https://img.shields.io/badge/⭐%20Rate%20&%20Review-Support%20Deskly-FFC107?style=for-the-badge&logo=star&logoColor=black" />
+</a>
+
+</div>
+
+---
+
+<div align="center">
+
+| 🪟 Microsoft Store | ⭐ Community Support |
+|:------------------:|:------------------:|
+| Install the latest stable release directly from Microsoft Store. | Your ratings and reviews help improve future updates and make Deskly reach more users. |
+
+</div>
+
+> 💙 **If Deskly helps you understand and improve your digital habits, please consider leaving a ⭐ rating or review on the Microsoft Store. Every bit of feedback directly supports future features and improvements.**
+
+---
+
+<div align="center">
+
+### ✨ Thank you for supporting Deskly ✨
+
+<img src="https://readme-typing-svg.demolab.com?font=Segoe+UI&weight=600&size=20&pause=3000&color=4FC3F7&center=true&vCenter=true&width=650&lines=Build+Healthier+Digital+Habits;Track+Screen+Time;Boost+Productivity;Now+Available+on+Microsoft+Store" />
+
+</div>
+---
 
 ## Overview
 
@@ -87,7 +129,8 @@ Deskly solves this by combining:
 - Data export.
 - Privacy-focused architecture.
 
-This project was developed as a final-year academic project at **Parul University** under the guidance of **Prof. Sunny Ramchandani**.
+This project was developed as a final-year academic project at **Parul University** under the guidance of **Prof.  
+Kushwaha, Alok Singh1**.
 
 ---
 
@@ -623,35 +666,33 @@ PDF   -> Weekly productivity report
 
 ---
 
-## Screenshots and Demo
+## 📸 Screenshots and Demo
 
-Place screenshots inside:
+<div align="center">
 
-```bash
-assets/screenshots/
-```
+<img src="https://github.com/user-attachments/assets/34ae2644-c77d-4842-a01a-2e409a26a033" width="85%" alt="Dashboard Overview"/>
 
-Recommended files:
+<br/><br/>
 
-```bash
-dashboard-preview.png
-dashboard.png
-reports.png
-limits.png
-heatmap.png
-achievements.png
-settings.png
-```
+<img src="https://github.com/user-attachments/assets/121e093a-3bbf-4180-8351-31eaca187c96" width="85%" alt="Application Usage"/>
 
-### Application Screens
+<br/><br/>
 
-| Dashboard                                                                  | Reports                                                                | Limits                                                               |
-| -------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| <img src="assets/screenshots/dashboard.png" width="100%" alt="Dashboard"/> | <img src="assets/screenshots/reports.png" width="100%" alt="Reports"/> | <img src="assets/screenshots/limits.png" width="100%" alt="Limits"/> |
+<img src="https://github.com/user-attachments/assets/cc2c721b-139f-4abf-ada7-8135fa05a1d5" width="85%" alt="Website Tracking"/>
 
-| Focus Heatmap                                                                | Achievements                                                                     | Settings                                                                 |
-| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| <img src="assets/screenshots/heatmap.png" width="100%" alt="Focus Heatmap"/> | <img src="assets/screenshots/achievements.png" width="100%" alt="Achievements"/> | <img src="assets/screenshots/settings.png" width="100%" alt="Settings"/> |
+<br/><br/>
+
+<img src="https://github.com/user-attachments/assets/7f2855ae-8d36-43cf-bd94-3b782ea71415" width="85%" alt="Reports Dashboard"/>
+
+<br/><br/>
+
+<img src="https://github.com/user-attachments/assets/a4bcc8b9-92c3-4f33-8cdc-9f1a23bfb6ee" width="85%" alt="Focus Analytics"/>
+
+<br/><br/>
+
+<img src="https://github.com/user-attachments/assets/8b484632-23c6-433b-b5d9-ceed98252203" width="85%" alt="Settings"/>
+
+</div>
 
 ---
 
@@ -663,100 +704,99 @@ Add your real demo video link here:
 [Watch Working Demo](REPLACE_WITH_WORKING_VIDEO_LINK)
 ```
 
-Recommended video flow:
-
-| Part | What to Show                             |
-| ---- | ---------------------------------------- |
-| 1    | App launch and first dashboard view.     |
-| 2    | Real-time app usage tracking.            |
-| 3    | Browser website detection.               |
-| 4    | App or website limit setup.              |
-| 5    | Soft overlay when limit is reached.      |
-| 6    | Weekly reports and focus heatmap.        |
-| 7    | Data export and local vault explanation. |
 
 ---
 
-### Software Link
+---
 
-```markdown
-[Download Deskly for Windows](https://www.deskly.in/)
-```
+## 🔗 Project Links
+
+<div align="center">
+
+<a href="https://www.deskly.in/">
+  <img src="https://img.shields.io/badge/🌐%20Official%20Website-deskly.in-0ea5e9?style=for-the-badge" alt="Official Website"/>
+</a>
+
+<a href="https://www.deskly.in/">
+  <img src="https://img.shields.io/badge/⬇️%20Download%20Deskly-Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Download Deskly"/>
+</a>
+
+<a href="https://zenodo.org/records/18909758">
+  <img src="https://img.shields.io/badge/📄%20Research%20Paper-Zenodo-334155?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Research Paper"/>
+</a>
+
+</div>
+
+<p align="center">
+
+🌐 <b>Website:</b> https://www.deskly.in/
+
+📥 <b>Download:</b> https://www.deskly.in/
+
+📖 <b>Research Paper:</b> https://zenodo.org/records/18909758
+
+</p>
 
 ---
 
-### Research Paper
+# 📚 Research Foundation
 
-Use this if the paper is stored in the repository:
+Deskly is built upon established research in **Digital Wellbeing**, **Human–Computer Interaction (HCI)**, **Behavior Change**, **Attention Management**, and **Productivity Science**. Rather than simply tracking screen time, the application translates evidence-based concepts into practical desktop wellbeing features.
 
-```markdown
-[Read Research Paper](docs/research-paper.pdf)
-```
-
-Use this if the paper is hosted online:
-
-```markdown
-[Read Research Paper](REPLACE_WITH_RESEARCH_PAPER_LINK)
-```
-
----
-
-## Research Foundation
-
-Deskly is influenced by research in digital wellbeing, human-computer interaction, productivity science, task switching, behavioral nudging, and habit formation.
-
-| Research Area         | Implementation in Deskly                                                |
-| --------------------- | ----------------------------------------------------------------------- |
-| Attention economy     | Shows how desktop applications and websites compete for user attention. |
-| Deep work             | Helps users identify and protect focused work sessions.                 |
-| Task switching        | Tracks app switching and fragmented usage patterns.                     |
-| Digital nudging       | Uses soft interventions instead of aggressive blocking.                 |
-| Habit formation       | Uses goals, streaks, achievements, and progress feedback.               |
-| Digital wellbeing     | Supports breaks, eye rest, movement, and healthier screen habits.       |
-| Privacy-first systems | Keeps usage data under local user control.                              |
+| Research Area | How Deskly Applies It |
+|---------------|-----------------------|
+| 🎯 Attention Economy | Helps users understand where their attention is spent across apps and websites. |
+| 🧠 Deep Work | Encourages longer focus sessions and minimizes unnecessary context switching. |
+| 🔄 Task Switching | Detects fragmented workflows and visualizes productivity patterns. |
+| 💡 Digital Nudging | Uses gentle reminders and soft interventions instead of restrictive blocking. |
+| 📈 Habit Formation | Reinforces positive habits using goals, streaks, achievements, and progress tracking. |
+| ❤️ Digital Wellbeing | Promotes healthier computing through break reminders, eye care, hydration, and movement. |
+| 🔒 Privacy-First Computing | Keeps all usage data under the user's local control with zero telemetry. |
 
 ---
 
-## Privacy and Security
+# 🔒 Privacy & Security
 
-Deskly follows a local-first privacy design.
+Deskly follows a **Local-First Privacy** architecture, ensuring that user activity remains under the user's control. The application does **not** rely on cloud analytics, advertising services, or third-party telemetry for its core functionality.
 
 ```mermaid
 flowchart LR
     A[User Activity] --> B[Local Tracking Engine]
-    B --> C[Local Vault Folder]
+    B --> C[Encrypted Local Storage]
     C --> D[Dashboard]
-    C --> E[Reports]
-    C --> F[Exports]
+    C --> E[Analytics]
+    C --> F[Reports & Export]
 
-    G[Analytics Server] -. Not Used .- B
-    H[Advertising Network] -. Not Used .- B
-    I[Third-party Telemetry] -. Not Used .- B
+    G[Cloud Analytics] -. Not Used .- B
+    H[Advertising Services] -. Not Used .- B
+    I[Third-Party Telemetry] -. Not Used .- B
 ```
 
-Privacy principles:
+### Privacy Principles
 
-| Principle            | Implementation                                                       |
-| -------------------- | -------------------------------------------------------------------- |
-| Local data ownership | Usage data is stored in a folder selected by the user.               |
-| No telemetry         | The app does not send usage analytics to external tracking services. |
-| No browser extension | Website activity is detected through local window-title parsing.     |
-| No kernel driver     | Tracking uses user-level Windows APIs.                               |
-| Export control       | Users can export JSON, CSV, and PDF reports.                         |
-| Offline support      | Core tracking and reporting work without internet access.            |
-| Portable storage     | Users can move or back up their local vault folder.                  |
+| Principle | Implementation |
+|------------|----------------|
+| 🔒 Local Data Ownership | All usage data remains on the user's device. |
+| 🚫 Zero Telemetry | No tracking, analytics, or advertising services are used. |
+| 🌐 No Browser Extension | Website detection works through local window-title analysis. |
+| ⚙️ User-Level APIs | Uses Windows APIs without requiring kernel drivers. |
+| 📤 Export Freedom | Supports JSON, CSV, and PDF data export. |
+| 📡 Offline Support | Core functionality works completely without an internet connection. |
+| 💾 Portable Storage | Users can back up or move their local data whenever they choose. |
 
-Security considerations:
+### Security Measures
 
-| Area            | Approach                                                  |
-| --------------- | --------------------------------------------------------- |
-| Renderer safety | Context isolation and sandboxed renderer process.         |
-| Token storage   | Authentication tokens are encrypted at rest.              |
-| System access   | Uses user-level APIs instead of privileged kernel access. |
-| Data control    | Export and deletion are controlled by the user.           |
+| Area | Implementation |
+|------|----------------|
+| 🛡️ Electron Security | Context Isolation and Sandboxed Renderer enabled. |
+| 🔑 Secure Authentication | Tokens are encrypted before local storage. |
+| 🔒 IPC Communication | Secure communication between renderer and main processes. |
+| 👤 Least Privilege | Uses standard Windows user permissions only. |
+| 📂 Data Control | Users can export or permanently delete their data at any time. |
+
+> **Privacy Promise:** Your productivity data belongs to **you**. Deskly keeps your digital wellbeing information on your computer—not on someone else's servers.
 
 ---
-
 ## Team
 
 **Project Title:** Digital Wellbeing for Windows — Desktop-Native Productivity and Health Ecosystem
@@ -818,20 +858,27 @@ timeline
 
 ---
 
-## Project Links
 
-Replace the placeholders before publishing.
 
-| Resource                  | Link                                           |
-| ------------------------- | ---------------------------------------------- |
-| Live website              | https://www.deskly.in/                         |
-| Windows software download | [Download Deskly](https://www.deskly.in/)      |
-| Working video             | [Watch Demo](REPLACE_WITH_WORKING_VIDEO_LINK)  |
-| Research paper            | [Read Paper](REPLACE_WITH_RESEARCH_PAPER_LINK) |
-| Project report            | [Project Report](docs/project-report.pdf)      |
-| Presentation              | [Presentation](docs/presentation.pdf)          |
 
----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## References
 
