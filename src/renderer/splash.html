@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'none'">
+    <title>Deskly Academic Edition</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            overflow: hidden;
+            user-select: none;
+            -webkit-app-region: drag;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Variable Display', 'Segoe UI', Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .splash-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: sp-fade-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .logo-wrap {
+            width: 120px;
+            height: 120px;
+            border-radius: 26px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 32px rgba(59, 130, 246, 0.16);
+            background: #000000;
+            animation: sp-logo 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .brand-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            animation: sp-name 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+        }
+
+        .name {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #EDEDED;
+            line-height: 1;
+        }
+
+        .edition-badge {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.28);
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        .dots {
+            margin-top: 40px;
+            display: flex;
+            gap: 7px;
+            align-items: center;
+            animation: sp-name 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+        }
+
+        .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            animation: sp-dot-pulse 1.4s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+        }
+
+        .dot:nth-child(1) { animation-delay: 0.0s; }
+        .dot:nth-child(2) { animation-delay: 0.18s; }
+        .dot:nth-child(3) { animation-delay: 0.36s; }
+
+        @keyframes sp-fade-in {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes sp-logo {
+            from { opacity: 0; transform: scale(0.78) translateY(8px); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        @keyframes sp-name {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        @keyframes sp-dot-pulse {
+            0%, 100% { opacity: 0.22; transform: scale(1); }
+            50%      { opacity: 0.85; transform: scale(1.4); }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-card">
+        <div class="logo-wrap">
+            <img src="./assets/deskly-icon.png" class="logo-img" alt="Deskly Academic Edition">
+        </div>
+
+        <div class="brand-wrap">
+            <span class="name">Deskly</span>
+            <span class="edition-badge">Academic Edition</span>
+        </div>
+
+        <div class="dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</body>
+</html>

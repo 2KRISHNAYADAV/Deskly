@@ -1,0 +1,116 @@
+/* ========================
+ * Aurora Background Effect
+ * Ported from Aceternity UI to Vanilla CSS
+ * Dark Mode Only (FAANG FAANG Aesthetic)
+ * ======================== */
+
+:root {
+    /* Aurora specific color tokens - based on Tailwind defaults for the effect */
+    --aurora-bg: #000000;
+    --aurora-transparent: rgba(0, 0, 0, 0);
+
+    --aurora-1: #3b82f6;
+    /* blue-500 */
+    --aurora-2: #99f6e4;
+    /* teal-200 */
+    --aurora-3: #93c5fd;
+    /* blue-300 */
+    --aurora-4: #ccfbf1;
+    /* teal-100 */
+    --aurora-5: #60a5fa;
+    /* blue-400 */
+}
+
+/* Base wrapper matching existing Onboarding dark mode */
+.aurora-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--aurora-bg);
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+}
+
+.aurora-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* The core gradient meshes */
+.aurora-effect {
+    --dark-gradient: repeating-linear-gradient(100deg,
+            var(--aurora-bg) 0%,
+            var(--aurora-bg) 7%,
+            var(--aurora-transparent) 10%,
+            var(--aurora-transparent) 12%,
+            var(--aurora-bg) 16%);
+
+    --aurora-gradient: repeating-linear-gradient(100deg,
+            var(--aurora-1) 10%,
+            var(--aurora-2) 15%,
+            var(--aurora-3) 20%,
+            var(--aurora-4) 25%,
+            var(--aurora-5) 30%);
+
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    left: -10px;
+
+    background-image: var(--dark-gradient), var(--aurora-gradient);
+    background-size: 300% 200%;
+    background-position: 50% 50%, 50% 50%;
+
+    filter: blur(10px);
+    opacity: 0.5;
+    /* Increased to match Aceternity default for better visibility */
+    transform: translateZ(0);
+}
+
+/* The moving overlay that creates the Aurora intersection */
+.aurora-effect::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--dark-gradient), var(--aurora-gradient);
+    background-size: 200% 100%;
+    /* Removed background-attachment: fixed for major performance boost */
+    mix-blend-mode: difference;
+    animation: aurora-animate 60s linear infinite;
+}
+
+/* Optional radial mask provided by the original component */
+.aurora-effect.show-radial-gradient {
+    mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+}
+
+@keyframes aurora-animate {
+    from {
+        background-position: 50% 50%, 50% 50%;
+    }
+
+    to {
+        background-position: 350% 50%, 350% 50%;
+    }
+}
+
+/* Ensure children render strictly above the background */
+.aurora-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

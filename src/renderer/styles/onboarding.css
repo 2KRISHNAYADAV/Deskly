@@ -1,0 +1,281 @@
+/* Ultra-Premium Minimalist Deskly Setup Wizard (FAANG/Vercel/Linear style) */
+
+.onboarding-container {
+    /* Scoped to onboarding only — uses global design tokens */
+    --bg-base: var(--surface);
+    --bg-surface: var(--surface-container-high);
+    --border-subtle: var(--outline-variant);
+    --border-hover: var(--glass-border-hover, rgba(255, 255, 255, 0.15));
+    --text-primary: var(--on-surface);
+    --text-secondary: var(--on-surface-variant);
+    --accent-primary: var(--primary);
+    --accent-primary-text: var(--on-primary);
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    z-index: 1000;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.onboarding-card {
+    position: relative;
+    z-index: 10;
+    background: var(--bg-surface);
+    /* Strict, sharp borders instead of glowing blurs */
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 1), 0 12px 48px -12px rgba(0, 0, 0, 1);
+    border-radius: 16px;
+    padding: 64px 48px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+}
+
+.onboarding-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.onboarding-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: #111111;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    /* For images */
+}
+
+/* Make logo wrapper blend or shine */
+.onboarding-icon-wrapper.logo-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.onboarding-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    /* Match the wrapper */
+}
+
+/* Auth Actions */
+.auth-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.onboarding-btn.skip-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid transparent;
+}
+
+.onboarding-btn.skip-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.onboarding-subtitle.subtle {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: -8px;
+}
+
+.onboarding-icon {
+    font-size: 32px;
+    color: var(--text-primary);
+}
+
+.onboarding-icon.success-wrapper {
+    background: #051910;
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.onboarding-icon.success-wrapper .onboarding-icon {
+    color: #34d399;
+}
+
+.onboarding-card h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.1;
+}
+
+.onboarding-subtitle {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 400px;
+    font-weight: 400;
+}
+
+.vault-path-section {
+    width: 100%;
+    margin: 16px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.vault-path-display {
+    background: #050505;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.vault-path-icon {
+    font-size: 20px;
+    color: var(--text-secondary);
+}
+
+.vault-path-text {
+    font-size: 13px;
+    color: var(--text-primary);
+    word-break: break-all;
+    text-align: left;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.vault-path-empty {
+    background: #050505;
+    border: 1px dashed var(--border-subtle);
+    border-radius: 12px;
+    padding: 24px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.vault-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.onboarding-btn {
+    padding: 0 24px;
+    height: 44px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, opacity 0.15s ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: -0.01em;
+}
+
+.onboarding-btn.primary {
+    background: var(--accent-primary);
+    color: var(--accent-primary-text);
+    width: 100%;
+    border: 1px solid transparent;
+}
+
+.onboarding-btn.primary:hover:not(:disabled) {
+    background: #e5e5e5;
+}
+
+.onboarding-btn.primary:active:not(:disabled) {
+    transform: scale(0.98);
+    transition-duration: 60ms;
+    background: #d4d4d4;
+}
+
+.onboarding-btn.primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #333333;
+    color: #888888;
+}
+
+.onboarding-btn.secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    flex: 1;
+}
+
+.onboarding-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-hover);
+}
+
+.onboarding-btn.secondary:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.onboarding-error {
+    background: var(--error-container);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--error);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+.onboarding-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 48px;
+}
+
+.onboarding-dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: background 0.2s ease;
+}
+
+.onboarding-dots .dot.active {
+    background: var(--text-primary);
+}
+
+.setup-loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-subtle);
+    border-top-color: var(--accent-primary);
+    border-radius: 50%;
+    animation: rotate 0.8s linear infinite;
+    margin-top: 16px;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}

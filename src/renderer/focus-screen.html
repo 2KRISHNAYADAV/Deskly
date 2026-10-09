@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self';" />
+  <title>Focus</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body, #focus-root { width: 100%; height: 100%; background: #0A0A0F; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div id="focus-root"></div>
+  <script type="module" src="./focus-screen.jsx"></script>
+</body>
+</html>

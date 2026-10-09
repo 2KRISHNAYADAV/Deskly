@@ -1,0 +1,70 @@
+/* Focus overlay — Ant Design dark, flat, clean. No glass, no glow. */
+:root { --accent:#1D4ED8; --accent-hover:#1A44C0; --accent-text:#60a5fa; --error:#EF4444; --surface:#0a0a0a; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body,#focus-root { width:100%; height:100%; background:var(--surface); overflow:hidden; }
+body {
+    font-family: 'Inter Variable','Segoe UI',-apple-system,sans-serif;
+    color:#EDEDED; -webkit-font-smoothing:antialiased; user-select:none;
+}
+.material-symbols-rounded {
+    font-family:'Material Symbols Rounded'; font-weight:normal; font-style:normal;
+    line-height:1; letter-spacing:normal; display:inline-block; white-space:nowrap;
+    direction:ltr;
+    font-variation-settings:'FILL'1,'wght'400,'GRAD'0,'opsz'40;
+}
+.fs {
+    display:flex; flex-direction:column; align-items:center;
+    width:100%; height:100vh; padding:0 36px 24px; background:#0a0a0a;
+}
+.fs-dragbar { width:100%; height:30px; flex-shrink:0; -webkit-app-region:drag; }
+
+.fs-badge {
+    width:68px; height:68px; border-radius:6px;
+    background:rgba(29,78,216,0.15); border:1px solid var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    margin-top:8px; margin-bottom:18px;
+    animation: fs-badge-in 0.45s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes fs-badge-in { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:none; } }
+.fs-badge .material-symbols-rounded { font-size:34px; color:var(--accent-text); }
+
+@keyframes fs-rise { from { opacity:0; transform:translate3d(0,8px,0); } to { opacity:1; transform:none; } }
+.fs-title { font-size:20px; font-weight:700; letter-spacing:-0.04em; margin-bottom:6px; animation: fs-rise 0.4s cubic-bezier(0.22,1,0.36,1) 0.06s both; }
+.fs-sub { font-size:13px; line-height:1.45; color:var(--on-surface-muted,rgba(255,255,255,0.50)); text-align:center; max-width:300px; animation: fs-rise 0.4s cubic-bezier(0.22,1,0.36,1) 0.10s both; }
+
+.fs-timer { font-size:56px; font-weight:800; letter-spacing:-0.05em; font-variant-numeric:tabular-nums; color:#EDEDED; margin:24px 0 4px; animation: fs-rise 0.4s cubic-bezier(0.22,1,0.36,1) 0.14s both; }
+.fs-timer-label { font-size:13px; color:rgba(255,255,255,0.4); margin-bottom:28px; }
+
+.fs-btn {
+    padding:10px 22px; border-radius:4px;
+    font-family:inherit; font-size:13.5px; font-weight:600;
+    cursor:pointer; border:none;
+    transition:background 0.14s, border-color 0.14s, transform 0.1s;
+}
+.fs-btn:active { transform: scale(0.97); }
+.fs-ghost {
+    background:var(--fill-quaternary,rgba(255,255,255,0.04));
+    border:1px solid var(--outline-variant,#272727);
+    color:var(--on-surface-variant,#A1A1AA);
+}
+.fs-ghost:hover { background:var(--fill-tertiary,rgba(255,255,255,0.08)); border-color:var(--outline,#434343); color:#EDEDED; }
+.fs-primary { background:var(--accent); color:#fff; border:1px solid transparent; }
+.fs-primary:hover { background:var(--accent-hover,#1A44C0); }
+.fs-danger {
+    background:rgba(239,68,68,0.12);
+    border:1px solid rgba(239,68,68,0.30);
+    color:var(--error);
+}
+.fs-danger:hover { background:rgba(239,68,68,0.20); border-color:rgba(239,68,68,0.45); }
+
+.fs-confirm { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.fs-confirm p { font-size:13px; color:rgba(255,255,255,0.6); }
+.fs-confirm-row { display:flex; gap:8px; }
+.fs-nudge-row { display:flex; gap:8px; }
+
+.fs-foot { margin-top:auto; padding-top:16px; display:flex; align-items:center; gap:5px; font-size:11px; color:rgba(255,255,255,0.24); }
+.fs-foot .material-symbols-rounded { font-size:13px; font-variation-settings:'FILL'1,'wght'400,'GRAD'0,'opsz'20; }
+
+.fs-boot { display:flex; align-items:center; justify-content:center; height:100vh; }
+.fs-spin { width:24px; height:24px; border:2px solid rgba(255,255,255,0.1); border-top-color:var(--accent-text); border-radius:50%; animation:fs-spin 0.7s linear infinite; }
+@keyframes fs-spin { to { transform:rotate(360deg); } }

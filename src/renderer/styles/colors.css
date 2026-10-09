@@ -1,0 +1,185 @@
+/* ============================================
+   Deskly - Unified Color System
+   Single source of truth for all colors
+   ============================================ */
+
+/* 
+   USAGE: Import this file first, then use CSS variables.
+   For JSX inline styles, use the exported constants from colors.js
+*/
+
+:root {
+    /* ===== PRIMARY BRAND COLOR ===== */
+    /* Stark, High-Contrast FAANG/Linear Minimalist */
+    --primary: #FFFFFF;
+    --primary-light: #F3F4F6;
+    --primary-dark: #E5E7EB;
+    --primary-container: rgba(255, 255, 255, 0.1);
+    --on-primary: #000000;
+    --on-primary-container: #FFFFFF;
+
+    /* ===== SURFACES ===== */
+    /* True Black & Deep Grays */
+    --surface-dim: #000000;
+    --surface: #000000;
+    --surface-bright: #050505;
+    --surface-container-lowest: #000000;
+    --surface-container-low: #050505;
+    --surface-container: #0A0A0A;
+    --surface-container-high: #111111;
+    --surface-container-highest: #1A1A1A;
+
+    /* Glass effect backgrounds */
+    --glass-bg: rgba(0, 0, 0, 0.5);
+    --glass-bg-hover: rgba(10, 10, 10, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.10);
+    --glass-border-hover: rgba(255, 255, 255, 0.15);
+
+    /* ===== TEXT COLORS ===== */
+    --on-surface: #EDEDED;
+    --on-surface-variant: #A1A1AA;
+    --on-surface-muted: rgba(255, 255, 255, 0.4);
+    --outline: #555555;
+    --outline-variant: rgba(255, 255, 255, 0.10);
+
+    /* ===== SEMANTIC COLORS ===== */
+    /* Success - Green */
+    --success: #22C55E;
+    --success-light: #4ADE80;
+    --success-dark: #16A34A;
+    --success-container: rgba(34, 197, 94, 0.15);
+
+    /* Warning - Amber */
+    --warning: #FBBF24;
+    --warning-light: #FCD34D;
+    --warning-dark: #F59E0B;
+    --warning-container: rgba(251, 191, 36, 0.15);
+
+    /* Error - Red */
+    --error: #EF4444;
+    --error-light: #F87171;
+    --error-dark: #DC2626;
+    --error-container: rgba(239, 68, 68, 0.15);
+
+    /* Info - Blue */
+    --info: #3B82F6;
+    --info-light: #60A5FA;
+    --info-dark: #2563EB;
+    --info-container: rgba(59, 130, 246, 0.15);
+
+    /* ===== ACCENT COLORS (For variety in charts/lists) ===== */
+    --accent-purple: #A855F7;
+    --accent-pink: #EC4899;
+    --accent-orange: #F97316;
+    --accent-teal: #14B8A6;
+    --accent-cyan: #06B6D4;
+    --accent-yellow: #EAB308;
+
+    /* ===== BROWSER BRAND COLORS ===== */
+    --browser-brave: #FB542B;
+    --browser-chrome: #4285F4;
+    --browser-edge: #0078D7;
+    --browser-firefox: #FF7139;
+    --browser-safari: #006CFF;
+    --browser-opera: #FF1B2D;
+    --browser-vivaldi: #EF3939;
+
+    /* ===== CATEGORY COLORS (Preset palette for categories) ===== */
+    /* These must match --cat-* variables in index.css */
+    --cat-productivity: #22C55E;
+    --cat-social: #EC4899;
+    --cat-entertainment: #F59E0B;
+    --cat-browsing: #38BDF8;
+    --cat-gaming: #A855F7;
+    --cat-system: #64748B;
+    --cat-other: #6B7280;
+
+    /* ===== COMPONENT-SPECIFIC ===== */
+    /* Progress bars */
+    --progress-track: rgba(255, 255, 255, 0.08);
+    --progress-fill: var(--primary);
+
+    /* Sidebar */
+    --sidebar-bg: var(--surface-container-low);
+    --sidebar-active: var(--secondary-container);
+    --sidebar-hover: rgba(255, 255, 255, 0.05);
+
+    /* Secondary - For sidebar active states */
+    --secondary: #A1A1AA;
+    --secondary-container: rgba(255, 255, 255, 0.05);
+    --on-secondary-container: #FFFFFF;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Text colors */
+.text-primary {
+    color: var(--primary);
+}
+
+.text-success {
+    color: var(--success);
+}
+
+.text-warning {
+    color: var(--warning);
+}
+
+.text-error {
+    color: var(--error);
+}
+
+.text-info {
+    color: var(--info);
+}
+
+.text-muted {
+    color: var(--on-surface-variant);
+}
+
+/* Background colors */
+.bg-primary {
+    background-color: var(--primary-container);
+}
+
+.bg-success {
+    background-color: var(--success-container);
+}
+
+.bg-warning {
+    background-color: var(--warning-container);
+}
+
+.bg-error {
+    background-color: var(--error-container);
+}
+
+.bg-info {
+    background-color: var(--info-container);
+}
+
+/* Icon containers with semantic colors */
+.icon-primary {
+    background: var(--primary-container);
+    color: var(--primary);
+}
+
+.icon-success {
+    background: var(--success-container);
+    color: var(--success);
+}
+
+.icon-warning {
+    background: var(--warning-container);
+    color: var(--warning);
+}
+
+.icon-error {
+    background: var(--error-container);
+    color: var(--error);
+}
+
+.icon-info {
+    background: var(--info-container);
+    color: var(--info);
+}

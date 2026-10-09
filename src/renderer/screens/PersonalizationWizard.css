@@ -1,0 +1,694 @@
+/* ══════════════════════════════════════════════════════════════════
+   PersonalizationWizard  —  wz- prefix
+   z-index: 100000  →  sits above Titlebar (99999)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Overlay ──────────────────────────────────────────────────────── */
+.wz-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: wz-fade-in 0.24s ease both;
+}
+
+@keyframes wz-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ── Card ─────────────────────────────────────────────────────────── */
+.wz-card {
+    background: var(--surface-container-high);
+    border: 1px solid var(--outline-variant);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 520px;
+    padding: 28px 28px 32px;
+    max-height: 88vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    animation: wz-card-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.wz-card::-webkit-scrollbar { display: none; }
+
+@keyframes wz-card-in {
+    from { opacity: 0; transform: scale(0.92) translateY(20px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ── Progress segments ────────────────────────────────────────────── */
+.wz-progress {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+}
+
+.wz-progress-segment {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--outline-variant);
+    transition: background 0.3s ease;
+}
+
+.wz-progress-segment.done   { background: var(--accent); }
+.wz-progress-segment.active { background: var(--accent); opacity: 0.55; }
+
+/* ── Generic step wrapper ─────────────────────────────────────────── */
+.wz-step {
+    animation: wz-step-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes wz-step-in {
+    from { opacity: 0; transform: translateX(16px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.wz-step-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--accent-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.wz-step-icon .material-symbols-rounded {
+    font-size: 24px;
+    color: var(--accent-text);
+    font-variation-settings: 'FILL' 1;
+}
+
+.wz-step-title {
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--on-surface);
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.wz-step-sub {
+    font-size: 13px;
+    color: var(--on-surface-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* ── Step actions row ─────────────────────────────────────────────── */
+.wz-step-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────── */
+.wz-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 22px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: filter 0.14s ease, transform 0.12s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Push primary to the right within action rows */
+.wz-step-actions .wz-primary-btn { margin-left: auto; }
+
+.wz-primary-btn:hover  { filter: brightness(1.1); }
+.wz-primary-btn:active { transform: scale(0.97); }
+.wz-primary-btn:disabled { opacity: 0.5; cursor: default; }
+.wz-primary-btn .material-symbols-rounded { font-size: 16px; }
+
+.wz-back-btn,
+.wz-secondary-btn {
+    padding: 12px 18px;
+    background: transparent;
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    color: var(--on-surface-muted);
+    font-size: 13.5px;
+    font-weight: 600;
+    transition: background 0.14s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.wz-back-btn:hover,
+.wz-secondary-btn:hover { background: var(--surface-container); }
+
+/* ── Info note ────────────────────────────────────────────────────── */
+.wz-step-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--on-surface-muted);
+    line-height: 1.6;
+    padding: 10px 12px;
+    background: var(--surface-container);
+    border-radius: 10px;
+    margin-bottom: 0;
+    margin-top: 12px;
+}
+
+.wz-step-note .material-symbols-rounded {
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-variation-settings: 'FILL' 1;
+    color: var(--accent-text);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Step 1 — Welcome
+   ══════════════════════════════════════════════════════════════════ */
+.wz-step--welcome {
+    text-align: center;
+    padding: 8px 0 4px;
+}
+
+.wz-welcome-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.wz-welcome-icon .material-symbols-rounded {
+    font-size: 34px;
+    color: var(--accent-text);
+    font-variation-settings: 'FILL' 1;
+    animation: wz-wave 0.9s ease 0.4s both;
+}
+
+@keyframes wz-wave {
+    0%   { transform: rotate(0deg); }
+    20%  { transform: rotate(-16deg); }
+    40%  { transform: rotate(16deg); }
+    60%  { transform: rotate(-10deg); }
+    80%  { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.wz-welcome-title {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--on-surface);
+    margin-bottom: 12px;
+    line-height: 1.15;
+}
+
+.wz-welcome-headline {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--accent-text);
+    margin-bottom: 10px;
+}
+
+.wz-welcome-sub {
+    font-size: 13px;
+    color: var(--on-surface-muted);
+    line-height: 1.65;
+    max-width: 360px;
+    margin: 0 auto 20px;
+}
+
+.wz-welcome-pills {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.wz-welcome-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--on-surface-muted);
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 999px;
+    padding: 5px 12px;
+}
+
+.wz-welcome-pill .material-symbols-rounded {
+    font-size: 14px;
+    font-variation-settings: 'FILL' 1;
+    color: var(--accent-text);
+}
+
+.wz-welcome-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Center the primary button in the welcome step */
+.wz-welcome-actions .wz-primary-btn {
+    margin-left: 0;
+    width: 100%;
+    max-width: 260px;
+    justify-content: center;
+}
+
+.wz-skip-all {
+    font-size: 12.5px;
+    color: var(--on-surface-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.14s ease;
+}
+
+.wz-skip-all:hover { color: var(--on-surface); }
+
+/* ══════════════════════════════════════════════════════════════════
+   Step 2 — Goal
+   ══════════════════════════════════════════════════════════════════ */
+.wz-goal-presets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.wz-goal-preset {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 14px 14px 12px;
+    border-radius: 14px;
+    background: var(--surface-container);
+    border: 1.5px solid var(--outline-variant);
+    text-align: left;
+    transition: border-color 0.14s ease, background 0.14s ease;
+    cursor: pointer;
+}
+
+.wz-goal-preset.active {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+}
+
+.wz-goal-preset-icon {
+    font-size: 20px;
+    color: var(--on-surface-muted);
+    font-variation-settings: 'FILL' 1;
+    margin-bottom: 4px;
+    transition: color 0.14s ease;
+}
+
+.wz-goal-preset.active .wz-goal-preset-icon { color: var(--accent-text); }
+
+.wz-goal-preset-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--on-surface);
+}
+
+.wz-goal-preset-hours {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+}
+
+.wz-goal-preset-desc {
+    font-size: 11px;
+    color: var(--on-surface-muted);
+    line-height: 1.45;
+    margin-top: 2px;
+}
+
+.wz-goal-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.wz-slider {
+    flex: 1;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.wz-goal-slider-label {
+    font-size: 11px;
+    color: var(--on-surface-muted);
+    font-weight: 600;
+    min-width: 22px;
+    text-align: center;
+}
+
+.wz-goal-display {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Step 3 — Watch apps
+   ══════════════════════════════════════════════════════════════════ */
+.wz-watch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.wz-watch-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 6px 10px;
+    border-radius: 12px;
+    background: var(--surface-container);
+    border: 1.5px solid var(--outline-variant);
+    position: relative;
+    transition: border-color 0.14s ease, background 0.14s ease, transform 0.12s ease;
+    cursor: pointer;
+}
+
+.wz-watch-tile.selected {
+    border-color: var(--app-color, var(--accent));
+    background: color-mix(in srgb, var(--app-color, var(--accent)) 10%, transparent);
+}
+
+.wz-watch-tile.dimmed {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.wz-watch-tile:not(.dimmed):hover { transform: scale(1.04); }
+
+.wz-watch-icon {
+    font-size: 22px;
+    color: var(--on-surface-muted);
+    font-variation-settings: 'FILL' 1;
+    transition: color 0.14s ease;
+}
+
+.wz-watch-name {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--on-surface);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.wz-watch-check {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 13px;
+    color: var(--app-color, var(--accent));
+    font-variation-settings: 'FILL' 1;
+}
+
+.wz-watch-badge {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--on-surface-muted);
+    background: var(--surface-container-high);
+    border-radius: 4px;
+    padding: 1px 5px;
+    border: 1px solid var(--outline-variant);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Step 4 — Habits
+   ══════════════════════════════════════════════════════════════════ */
+.wz-habits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.wz-habit-row {
+    border-radius: 14px;
+    background: var(--surface-container);
+    border: 1.5px solid var(--outline-variant);
+    overflow: hidden;
+    transition: border-color 0.14s ease;
+}
+
+.wz-habit-row.selected {
+    border-color: var(--habit-color, var(--accent));
+    background: color-mix(in srgb, var(--habit-color, var(--accent)) 8%, var(--surface-container));
+}
+
+.wz-habit-row.dimmed { opacity: 0.4; }
+
+.wz-habit-row-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.1s ease;
+}
+
+.wz-habit-row.dimmed .wz-habit-row-main { cursor: default; }
+
+.wz-habit-row-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--habit-color, var(--accent)) 16%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.wz-habit-row-icon .material-symbols-rounded {
+    font-size: 18px;
+    color: var(--habit-color, var(--accent));
+    font-variation-settings: 'FILL' 1;
+}
+
+.wz-habit-row-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.wz-habit-row-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--on-surface);
+}
+
+.wz-habit-row-desc {
+    font-size: 11.5px;
+    color: var(--on-surface-muted);
+}
+
+.wz-habit-row-check {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.14s ease;
+}
+
+.wz-habit-row-check.vis { opacity: 1; }
+
+.wz-habit-row-check .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--habit-color, var(--accent));
+    font-variation-settings: 'FILL' 1;
+}
+
+/* App-name input that appears when a habit row is selected */
+.wz-habit-app-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px 12px;
+    border-top: 1px solid var(--outline-variant);
+}
+
+.wz-habit-app-row .material-symbols-rounded {
+    font-size: 16px;
+    color: var(--on-surface-muted);
+    flex-shrink: 0;
+}
+
+.wz-habit-app-input {
+    flex: 1;
+    background: var(--surface-container-high);
+    border: 1px solid var(--outline-variant);
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--on-surface);
+    outline: none;
+    transition: border-color 0.14s ease;
+}
+
+.wz-habit-app-input::placeholder { color: var(--on-surface-muted); font-weight: 400; }
+.wz-habit-app-input:focus { border-color: var(--accent); }
+
+/* ══════════════════════════════════════════════════════════════════
+   Step 5 — Done
+   ══════════════════════════════════════════════════════════════════ */
+.wz-step--done { text-align: center; }
+
+.wz-done-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    animation: wz-done-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+@keyframes wz-done-pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+}
+
+.wz-done-icon .material-symbols-rounded {
+    font-size: 40px;
+    color: var(--accent-text);
+    font-variation-settings: 'FILL' 1;
+}
+
+.wz-done-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 16px;
+    background: var(--surface-container);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.wz-done-summary-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--on-surface);
+    font-weight: 600;
+}
+
+.wz-done-summary-row .material-symbols-rounded {
+    font-size: 16px;
+    color: #22C55E;
+    font-variation-settings: 'FILL' 1;
+    flex-shrink: 0;
+}
+
+.wz-done-expect {
+    text-align: left;
+    padding: 14px 16px;
+    background: var(--surface-container);
+    border-radius: 14px;
+    margin-bottom: 24px;
+}
+
+.wz-done-expect-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 10px;
+}
+
+.wz-done-expect-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    color: var(--on-surface-muted);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.wz-done-expect-row:last-child { margin-bottom: 0; }
+
+.wz-done-expect-row .material-symbols-rounded {
+    font-size: 15px;
+    color: var(--accent-text);
+    font-variation-settings: 'FILL' 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.wz-finish-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .wz-card,
+    .wz-step,
+    .wz-done-icon,
+    .wz-welcome-icon .material-symbols-rounded {
+        animation: none !important;
+    }
+
+    .wz-watch-tile,
+    .wz-goal-preset,
+    .wz-primary-btn {
+        transition: none !important;
+    }
+}

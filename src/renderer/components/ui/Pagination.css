@@ -1,0 +1,77 @@
+/* Pagination — violet active, consistent with the system. */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 20px 0 4px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.pg-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: transparent;
+    color: rgba(255,255,255,0.55);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.13s, color 0.13s, border-color 0.13s;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.pg-btn:hover:not(:disabled):not(.active) {
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.90);
+    border-color: rgba(255,255,255,0.12);
+}
+
+.pg-btn:active:not(:disabled) {
+    transform: scale(0.93);
+    transition: transform 0.06s ease;
+}
+
+/* Active page — solid deep violet */
+.pg-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: transparent;
+    font-weight: 600;
+    cursor: default;
+}
+.pg-btn.active:hover { background: var(--accent); }
+
+.pg-btn:disabled {
+    opacity: 0.28;
+    cursor: not-allowed;
+}
+
+.pg-btn:focus-visible {
+    outline: 2px solid rgba(139,92,246,0.65);
+    outline-offset: 2px;
+}
+
+.pg-arrow .material-symbols-rounded {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.pg-ellipsis {
+    min-width: 22px;
+    text-align: center;
+    color: rgba(255,255,255,0.28);
+    font-size: 13px;
+    pointer-events: none;
+    user-select: none;
+}

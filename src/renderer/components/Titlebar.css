@@ -1,0 +1,85 @@
+/* ═══════════════════════════════════════════════════════════════
+   Deskly Titlebar — Ant Design Dark Theme
+   Flat, solid, no glass, no gradients, no glow.
+   NOTE: Titlebar.jsx currently uses inline styles for all sizing
+   and drag-region logic. These classes are provided for future
+   extraction and for any supplemental layout concerns.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Titlebar band ───────────────────────────────────────────────────────── */
+.titlebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 6px;
+    z-index: 99999;
+    /* Flat background matching the lowest surface — no gradient, no blur */
+    background: var(--surface-container-low);
+    border-bottom: 1px solid var(--outline-variant);
+    /* Allows OS-level drag to move the window */
+    -webkit-app-region: drag;
+    user-select: none;
+}
+
+/* ── Window control group ────────────────────────────────────────────────── */
+.titlebar-controls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    -webkit-app-region: no-drag;
+}
+
+/* ── Individual window control button ────────────────────────────────────── */
+.titlebar-btn {
+    width: 40px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.48);
+    -webkit-app-region: no-drag;
+    flex-shrink: 0;
+    outline: none;
+    transition: background 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.titlebar-btn:hover {
+    background: var(--fill-tertiary);
+    color: var(--on-surface);
+}
+
+.titlebar-btn:active {
+    background: var(--fill-quaternary);
+}
+
+/* ── Close button — distinct danger color on hover ───────────────────────── */
+.titlebar-btn--close:hover {
+    background: var(--error);
+    color: #ffffff;
+}
+
+.titlebar-btn--close:active {
+    background: #c0392b;
+    color: #ffffff;
+}
+
+/* ── Optional app title text (if added to the band) ─────────────────────── */
+.titlebar-title {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--on-surface-muted);
+    text-align: center;
+    pointer-events: none;
+    letter-spacing: 0.01em;
+}

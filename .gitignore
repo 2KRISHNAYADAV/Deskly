@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+release/
+release-store/
+out/
+
+# Environment files (NEVER commit secrets)
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test data
+*.test.json
+test-data/
+
+# Electron
+*.asar
+
+# Cache
+.cache/
+.npm/
+
+# Workspace-only — research notes, university docs, skills configs
+UniversityRules/
+research_papers/
+research-paper/
+.skills/
+
+# Code signing certificates (NEVER commit)
+*.p12
+*.pfx
+*.key
+*.pem
+*.crt
+
+# graphify local extraction cache (graph.json/GRAPH_REPORT.md are committed, cache is not)
+graphify-out/cache/

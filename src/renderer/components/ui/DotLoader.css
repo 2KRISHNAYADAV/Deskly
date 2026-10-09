@@ -1,0 +1,13 @@
+.dot-loader-dot {
+    width: var(--dl-size, 4px);
+    height: var(--dl-size, 4px);
+    border-radius: 2px;
+    background: var(--dl-inactive, rgba(255, 255, 255, 0.14));
+    opacity: 0.35;
+    transition: background-color 120ms ease, opacity 120ms ease;
+}
+
+.dot-loader-dot.active {
+    background: var(--dl-active, rgba(255, 255, 255, 0.9));
+    opacity: 1;
+}

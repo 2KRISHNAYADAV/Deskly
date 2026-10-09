@@ -1,0 +1,325 @@
+/* =========================================
+   Dashboard Responsive Grid System
+   Ant Design Dark Theme — Flat, Solid, Clean
+   ========================================= */
+
+/* ──────────────────────────────────────────
+   Grid Container
+   ────────────────────────────────────────── */
+
+.dashboard-grid-container {
+    display: grid;
+    gap: 16px;
+    height: auto;
+    min-height: 0;
+    grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr) minmax(200px, 0.8fr);
+    grid-template-rows: minmax(360px, 1fr) auto;
+    grid-template-areas:
+        "hero stats balance"
+        "recent cats balance";
+}
+
+/* Grid Areas */
+.area-hero    { grid-area: hero;    }
+.area-stats   { grid-area: stats;   }
+.area-balance { grid-area: balance; }
+.area-recent  { grid-area: recent;  }
+.area-cats    { grid-area: cats;    }
+
+/* Stats Capsules Grid Internal Layout */
+.stats-capsules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+    height: 100%;
+}
+
+/* ──────────────────────────────────────────
+   Base Card / Panel — Ant Design Dark
+   All cards share this foundation.
+   background: solid --surface-container
+   border: 1px solid --outline-variant
+   radius: 6px
+   NO gradients, NO shadows, NO blur
+   ────────────────────────────────────────── */
+
+.refined-card {
+    height: 100%;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* ──────────────────────────────────────────
+   Hero Card — screen-time ring panel
+   ────────────────────────────────────────── */
+
+.hero-card {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+}
+
+/* ──────────────────────────────────────────
+   Stat Capsules
+   ────────────────────────────────────────── */
+
+.stat-capsule {
+    display: flex;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+    transition: border-color 0.15s ease;
+}
+
+/* Navigation capsules (button elements) — reset button defaults */
+.stat-capsule-nav {
+    cursor: pointer;
+    text-align: center;
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.stat-capsule-nav:hover {
+    border-color: var(--accent);
+    background: var(--surface-container);
+}
+
+.stat-capsule-nav:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ──────────────────────────────────────────
+   Capsule Icon Container
+   ────────────────────────────────────────── */
+
+.capsule-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+/* ──────────────────────────────────────────
+   Capsule Typography
+   ────────────────────────────────────────── */
+
+.capsule-value {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--on-surface);
+    white-space: nowrap;
+}
+
+.capsule-label {
+    display: block;
+    font-size: 12px;
+    color: var(--on-surface-muted);
+    margin-top: 4px;
+}
+
+/* ──────────────────────────────────────────
+   List Panels (Most Used, Categories)
+   ────────────────────────────────────────── */
+
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--on-surface);
+    letter-spacing: -0.04em;
+}
+
+/* ──────────────────────────────────────────
+   App Row (Most Used list items)
+   ────────────────────────────────────────── */
+
+.premium-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--fill-quaternary);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    box-sizing: border-box;
+}
+
+.premium-list-item:hover {
+    border-color: var(--accent);
+    background: var(--fill-quaternary);
+}
+
+/* db-app-row is the specific class used on Most Used rows in Dashboard.jsx.
+   It shares premium-list-item's visual contract, just with alignment tweaks
+   that Dashboard.css handles via animation. Keep these overrides minimal. */
+.db-app-row {
+    background: var(--fill-quaternary);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.db-app-row:hover {
+    border-color: var(--accent);
+    background: var(--fill-quaternary);
+}
+
+/* ──────────────────────────────────────────
+   List Item Typography
+   ────────────────────────────────────────── */
+
+.list-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.list-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-meta {
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.list-time {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--on-surface);
+    white-space: nowrap;
+}
+
+/* ──────────────────────────────────────────
+   Progress Bar (app usage bars)
+   ────────────────────────────────────────── */
+
+.progress-track {
+    height: 3px;
+    background: var(--fill-tertiary);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* ──────────────────────────────────────────
+   Category Dot
+   ────────────────────────────────────────── */
+
+.cat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+/* ──────────────────────────────────────────
+   Ghost Icon Button (arrow_forward nav)
+   ────────────────────────────────────────── */
+
+.btn-icon-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: var(--on-surface-variant);
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.btn-icon-ghost:hover {
+    color: var(--on-surface);
+    border-color: var(--outline-variant);
+}
+
+.btn-icon-ghost:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ──────────────────────────────────────────
+   Empty State Text
+   ────────────────────────────────────────── */
+
+.empty-text {
+    font-size: 12px;
+    color: var(--on-surface-muted);
+    text-align: center;
+    padding: 16px 0;
+}
+
+/* ──────────────────────────────────────────
+   Responsive Breakpoints
+   ────────────────────────────────────────── */
+
+/* Compact Desktop (Laptop) — 2-column layout below 1400px viewport */
+@media (max-width: 1400px) {
+    .dashboard-grid-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+            "hero balance"
+            "stats stats"
+            "recent cats";
+        height: auto;
+    }
+
+    .stats-capsules-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
+
+/* Tablet / Narrow Window — stacked single-column below 1100px viewport */
+@media (max-width: 1100px) {
+    .dashboard-grid-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "hero hero"
+            "stats stats"
+            "balance balance"
+            "recent cats";
+        gap: 16px;
+        padding-bottom: 40px;
+    }
+
+    .stats-capsules-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        gap: 12px;
+    }
+
+    .area-balance {
+        min-height: 250px;
+    }
+}

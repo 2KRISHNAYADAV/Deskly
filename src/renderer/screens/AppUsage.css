@@ -1,0 +1,816 @@
+/* ═══════════════════════════════════════════════════════════════
+   App Usage Page
+   ═══════════════════════════════════════════════════════════════ */
+
+.app-usage-screen {
+    padding: 0 0 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ── Stats row ───────────────────────────────────────────────────────────── */
+.au-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+/* Card base — flat, Ant Design style */
+.au-stat {
+    position: relative;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 8px;
+    padding: 20px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    min-height: 120px;
+    overflow: hidden;
+    transition: border-color 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 100ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.au-stat:hover {
+    border-color: var(--accent);
+}
+.au-stat:active {
+    transform: scale(0.99);
+    transition-duration: 50ms;
+}
+
+/* Ordinal — editorial "01 / 02 / 03 / 04" tucked in top-right */
+.au-stat-ordinal {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--on-surface-variant);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+    transition: color 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.au-stat:hover .au-stat-ordinal {
+    color: var(--on-surface);
+}
+
+/* Body — sits below the hairline and gives every card the same value-area height */
+.au-stat-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 80px;
+}
+
+/* Divider */
+.au-stat-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--outline-variant);
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+/* Number — editorial display type, sits at the top */
+.au-stat-value {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: var(--on-surface);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+/* Per-card signatures ─────────────────────────────────────────────────── */
+
+/* Hero — oversized number, solid white */
+.au-stat--hero .au-stat-value--hero {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--on-surface);
+}
+/* Inline italic emphasis inside labels — e.g. "Total Screen Time · today" */
+.au-stat-label-em {
+    font-style: italic;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--on-surface-muted);
+    margin-left: 2px;
+    padding-right: 0.2em; /* italic slant overhangs char box; card overflow:hidden clips it */
+}
+
+/* Apps count with literal dot signature */
+.au-stat-dots {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+}
+.au-stat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.78);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+    transform: scale(0);
+    animation: auStatDotPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes auStatDotPop {
+    to { transform: scale(1); }
+}
+
+/* Most Used — icon + name row */
+.au-stat-most-used-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    min-width: 0;
+}
+.au-stat-most-used-row .au-stat-value--app {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+/* Most Used — italic app name + sub-time */
+.au-stat-value--app {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 5px; /* italic slant clips in overflow:hidden without this */
+}
+.au-stat-subline {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 11.5px;
+    color: var(--on-surface-variant);
+    margin-top: 4px;
+}
+.au-stat-subtime {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--on-surface);
+    letter-spacing: -0.01em;
+}
+.au-stat-submeta {
+    font-style: italic;
+    color: var(--on-surface-muted);
+    padding-right: 0.15em;
+}
+
+/* Ring — bigger, with breathing room and proper viewBox centering */
+.au-stat--ring .au-stat-ring-wrap {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    align-self: flex-start;
+}
+.au-stat--ring .au-stat-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    overflow: visible;
+}
+.au-stat-ring-track {
+    fill: none;
+    stroke: rgba(255,255,255,0.08);
+    stroke-width: 1.4;
+}
+.au-stat-ring-fill {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-dasharray: 99.97;
+    stroke-dashoffset: 99.97;
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1);
+}
+.au-stat-value--ring {
+    position: relative;
+    z-index: 1;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+.au-stat-pct-mark {
+    font-size: 9.5px;
+    font-weight: 600;
+    margin-left: 0.5px;
+    color: var(--on-surface-muted);
+    letter-spacing: 0;
+}
+
+/* Label — fine caps with positive tracking, anchored at the bottom */
+.au-stat-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+}
+
+/* ── Top 5 chart ─────────────────────────────────────────────────────────── */
+.au-chart {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+}
+
+.au-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 18px;
+}
+.au-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--on-surface);
+    margin: 0;
+}
+.au-section-sub {
+    font-size: 12px;
+    color: var(--on-surface-muted);
+}
+
+.au-chart-row {
+    display: grid;
+    grid-template-columns: 22px 28px 140px 1fr 72px 40px;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.au-chart-row:last-child { border-bottom: none; }
+
+.au-chart-rank {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+.au-chart-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.au-chart-track {
+    height: 6px;
+    background: var(--outline-variant);
+    border-radius: 2px;
+    overflow: hidden;
+}
+.au-chart-fill {
+    height: 100%;
+    border-radius: 2px;
+    transform-origin: left;
+    animation: auBarGrow 0.5s ease both;
+}
+@keyframes auBarGrow {
+    from { transform: scaleX(0); }
+    to   { transform: none; }
+}
+.au-chart-time {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--on-surface);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+.au-chart-pct {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Controls row ────────────────────────────────────────────────────────── */
+.au-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.au-controls-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Search */
+.au-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 320px;
+}
+.au-search-icon {
+    position: absolute;
+    left: 11px;
+    font-size: 17px;
+    color: var(--on-surface-muted);
+    pointer-events: none;
+}
+.au-search {
+    width: 100%;
+    height: 38px;
+    padding: 0 34px 0 38px;
+    background: var(--surface-container);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    color: var(--on-surface);
+    font-size: 13px;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+}
+.au-search:focus {
+    border-color: var(--accent);
+    background: var(--surface-container-high);
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+}
+.au-search::placeholder { color: var(--on-surface-muted); }
+.au-search-clear {
+    position: absolute;
+    right: 9px;
+    background: none; border: none; cursor: pointer;
+    color: var(--on-surface-muted);
+    display: flex; align-items: center;
+    padding: 2px; border-radius: 4px;
+    transition: color 0.12s;
+}
+.au-search-clear:hover { color: var(--on-surface); }
+.au-search-clear .material-symbols-rounded { font-size: 15px; }
+
+/* Sort pills */
+.au-sort-pills {
+    display: flex;
+    gap: 3px;
+    background: rgba(255,255,255,0.04);
+    padding: 3px;
+    border-radius: 9px;
+}
+.au-sort-pill {
+    padding: 6px 13px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--on-surface-variant);
+    font-size: 12.5px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.14s, color 0.14s;
+    white-space: nowrap;
+}
+.au-sort-pill:hover { background: rgba(255,255,255,0.06); color: var(--on-surface); }
+.au-sort-pill.active {
+    background: rgba(255,255,255,0.10);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* View toggle */
+.au-view-toggle {
+    display: flex;
+    gap: 3px;
+    background: rgba(255,255,255,0.04);
+    padding: 3px;
+    border-radius: 9px;
+}
+.au-view-btn {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    background: transparent; border: none; border-radius: 6px;
+    color: var(--on-surface-variant); cursor: pointer;
+    transition: background 0.14s, color 0.14s;
+}
+.au-view-btn:hover { background: rgba(255,255,255,0.06); }
+.au-view-btn.active {
+    background: rgba(255,255,255,0.10);
+    color: #ffffff;
+}
+.au-view-btn .material-symbols-rounded { font-size: 18px; }
+
+/* ── List view ───────────────────────────────────────────────────────────── */
+.au-list {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.au-list-row {
+    display: grid;
+    grid-template-columns: 28px 34px 1fr 280px 78px 44px 116px;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.13s;
+    cursor: default;
+}
+.au-list-row:last-child { border-bottom: none; }
+.au-list-row:hover { background: rgba(255,255,255,0.03); }
+
+.au-list-rank {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
+.au-list-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+.au-list-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.au-list-cat {
+    font-size: 11px;
+    color: var(--on-surface-muted);
+    text-transform: capitalize;
+}
+.au-list-bar-wrap {
+    height: 5px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.au-list-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transform-origin: left;
+    animation: auBarGrow 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+.au-list-time {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--on-surface);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+}
+.au-list-pct {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* ── Grid view ───────────────────────────────────────────────────────────── */
+.au-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.au-grid-card {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 14px;
+    padding: 16px 16px 14px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.18s, box-shadow 0.18s;
+}
+.au-grid-card:hover {
+    border-color: color-mix(in srgb, var(--au-color) 35%, transparent);
+    box-shadow:
+        rgba(255,255,255,0.04) 0 0 0 1px,
+        rgba(0,0,0,0.28) 0 3px 10px 0,
+        rgba(0,0,0,0.44) 0 12px 32px 0;
+}
+
+.au-grid-card-accent {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--au-color);
+    opacity: 0.7;
+    border-radius: 14px 0 0 14px;
+}
+.au-grid-card:hover .au-grid-card-accent { opacity: 1; }
+
+.au-grid-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+.au-grid-rank {
+    font-size: 11px;
+    font-weight: 700;
+}
+.au-grid-favorite-badge {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 8px;
+    border-radius: var(--shape-corner-full);
+    background: var(--surface-container-highest);
+    border: 1px solid var(--outline-variant);
+    color: var(--on-surface);
+    font-size: 10.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow:
+        rgba(255,255,255,0.04) 0 0 0 1px,
+        rgba(0,0,0,0.28) 0 3px 10px 0;
+}
+.au-grid-favorite-badge .material-symbols-rounded {
+    font-size: 12px;
+    color: var(--warning);
+}
+.au-grid-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.01em;
+}
+.au-grid-cat {
+    font-size: 11px;
+    color: var(--on-surface-muted);
+    text-transform: capitalize;
+}
+.au-grid-time {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    margin-top: 2px;
+}
+.au-grid-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 2px;
+}
+.au-grid-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transform-origin: left;
+    animation: auBarGrow 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+.au-grid-pct {
+    font-size: 11px;
+    color: var(--on-surface-muted);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .au-stats { grid-template-columns: repeat(2, 1fr); }
+    .au-chart-row { grid-template-columns: 22px 28px 100px 1fr 60px 36px; }
+    .au-list-row { grid-template-columns: 28px 32px 1fr 160px 64px 104px; }
+    .au-list-pct { display: none; }
+}
+@media (max-width: 600px) {
+    .au-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .au-stat { padding: 22px 16px 14px; min-height: 116px; }
+    .au-stat-ordinal { top: 10px; right: 12px; font-size: 9px; }
+    .au-stat::before { left: 16px; }
+    .au-stat-body { min-height: 64px; }
+    .au-stat-value { font-size: 24px; }
+    .au-stat--hero .au-stat-value--hero { font-size: 30px; }
+    .au-stat-value--app { font-size: 18px; }
+    .au-stat--ring .au-stat-ring-wrap { width: 56px; height: 56px; }
+    .au-stat-value--ring { font-size: 13px; }
+    .au-controls { flex-direction: column; align-items: flex-start; }
+    .au-search-wrap { max-width: 100%; }
+    .au-chart-row { grid-template-columns: 22px 26px 1fr 52px 32px; gap: 8px; }
+    .au-chart-name { display: none; }
+    .au-list-row { grid-template-columns: 32px 1fr 100px 42px; padding: 10px 14px; }
+    .au-list-rank { display: none; }
+    .au-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
+
+/* ── Per-app goal button + badge (in list rows) ─────────────────── */
+.au-set-goal-btn {
+    height: 28px;
+    padding: 0 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid var(--outline-variant);
+    color: var(--on-surface-muted);
+    transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.au-set-goal-btn:hover {
+    background: var(--surface-container-high);
+    color: var(--on-surface);
+    border-color: var(--outline);
+}
+
+.au-set-goal-btn .material-symbols-rounded {
+    font-size: 15px;
+}
+
+.au-set-goal-label {
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.au-goal-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: filter 0.14s ease, transform 0.12s ease;
+}
+
+.au-goal-badge:hover {
+    filter: brightness(1.15);
+    transform: scale(1.04);
+}
+
+.au-goal-badge .material-symbols-rounded {
+    font-size: 12px;
+}
+
+.au-goal-badge--minimum {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22C55E;
+}
+
+.au-goal-badge--maximum {
+    background: rgba(248, 113, 113, 0.15);
+    color: #F87171;
+}
+
+/* ── Goal Picker Modal (body content — shell comes from shared Modal/dm-* system) ── */
+.au-goal-type-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.au-goal-type-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    color: var(--on-surface-variant);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.au-goal-type-btn .material-symbols-rounded { font-size: 16px; }
+
+.au-goal-type-btn:hover {
+    border-color: var(--outline);
+    background: var(--surface-container-high);
+}
+
+.au-goal-type-btn.dm-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+
+.au-goal-mins-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.au-goal-mins-input {
+    width: 90px;
+    padding: 8px 12px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 4px;
+    color: var(--on-surface);
+    font-size: 18px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    font-family: inherit;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.au-goal-mins-input:focus {
+    border-color: var(--accent);
+}
+
+.au-goal-mins-unit {
+    font-size: 12px;
+    color: var(--on-surface-muted);
+}
+
+.au-goal-quick-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.au-goal-quick-pill {
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    color: var(--on-surface-variant);
+    font-size: 11.5px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.au-goal-quick-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent-text);
+}
+
+.au-goal-quick-pill.dm-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+
+.au-goal-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--on-surface-variant);
+}
+
+.au-goal-preview .material-symbols-rounded {
+    font-size: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+}

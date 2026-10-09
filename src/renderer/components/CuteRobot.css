@@ -1,0 +1,220 @@
+/* ================================================
+   CUTE ROBOT - Premium CSS Art
+   High quality transforms, no blur
+   ================================================ */
+
+/* CircularReveal slow spin — pure CSS so it runs on the compositor thread.
+   Replacing Framer Motion animate={{ rotate: 360 }} which ran a JS RAF at 60fps. */
+@keyframes cr-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.cute-robot {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Robot Container - Circle with no glow */
+.robot-circle {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.3s ease;
+
+    /* Anti-blur optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.cute-robot:hover .robot-circle {
+    transform: scale3d(1.06, 1.06, 1) translateZ(0);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Ears */
+.robot-ear {
+    position: absolute;
+    width: 6px;
+    height: 10px;
+    background: linear-gradient(180deg, #E5E7EB 0%, #E5E7EB 100%);
+    top: 50%;
+    transform: translateY(-50%) translateZ(0);
+    border: 2px solid #4f46e5;
+    backface-visibility: hidden;
+}
+
+.robot-ear.left {
+    left: -4px;
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+}
+
+.robot-ear.right {
+    right: -4px;
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+}
+
+/* Robot Head */
+.robot-head {
+    width: 30px;
+    height: 24px;
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    border: 2px solid #4f46e5;
+    border-radius: 9px 9px 11px 11px;
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    z-index: 2;
+    backface-visibility: hidden;
+}
+
+/* Antenna */
+.robot-antenna {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    width: 3px;
+    height: 7px;
+    background: #E5E7EB;
+    border-radius: 2px;
+    backface-visibility: hidden;
+}
+
+.robot-antenna::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    width: 7px;
+    height: 7px;
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+    border-radius: 50%;
+    animation: antenna-pulse 2.5s ease-in-out infinite;
+    backface-visibility: hidden;
+}
+
+/* Face */
+.robot-face {
+    width: 20px;
+    height: 13px;
+    background: linear-gradient(180deg, #ddd6fe 0%, #c4b5fd 100%);
+    border: 2px solid #E5E7EB;
+    border-radius: 5px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Eyes */
+.robot-eye {
+    position: absolute;
+    width: 4px;
+    height: 5px;
+    background: #1e1b4b;
+    border-radius: 50%;
+    top: 3px;
+    transition: height 0.2s ease, border-radius 0.2s ease, top 0.2s ease;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.robot-eye.left {
+    left: 3px;
+}
+
+.robot-eye.right {
+    right: 3px;
+}
+
+/* Mouth */
+.robot-mouth {
+    position: absolute;
+    width: 6px;
+    height: 3px;
+    border: 2px solid transparent;
+    border-bottom-color: #1e1b4b;
+    border-radius: 0 0 6px 6px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    backface-visibility: hidden;
+}
+
+/* Robot Body */
+.robot-body {
+    width: 18px;
+    height: 11px;
+    background: linear-gradient(180deg, #E5E7EB 0%, #5b21b6 100%);
+    border: 2px solid #4f46e5;
+    border-radius: 4px 4px 6px 6px;
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    z-index: 1;
+    backface-visibility: hidden;
+}
+
+/* Body highlight */
+.robot-body::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    width: 9px;
+    height: 2px;
+    background: rgba(167, 139, 250, 0.8);
+    border-radius: 1px;
+    backface-visibility: hidden;
+}
+
+/* ================================================
+   ANIMATIONS - GPU Accelerated
+   ================================================ */
+
+@keyframes antenna-pulse {
+
+    0%,
+    100% {
+        opacity: 0.85;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Hover - Happy Robot */
+.cute-robot:hover .robot-eye {
+    height: 2.5px;
+    border-radius: 4px 4px 0 0;
+    top: 4px;
+}
+
+.cute-robot:hover .robot-mouth {
+    border-bottom-color: transparent;
+    background: #1e1b4b;
+    height: 4px;
+    width: 7px;
+    border-radius: 0 0 5px 5px;
+    border: none;
+}

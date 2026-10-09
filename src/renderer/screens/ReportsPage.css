@@ -1,0 +1,641 @@
+/* ═══════════════════════════════════════════════════════════════
+   Reports Page
+   ═══════════════════════════════════════════════════════════════ */
+
+.rp {
+    padding: 0 0 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Period-switch fade */
+.rp-transition-overlay {
+    position: absolute; inset: 0; z-index: 10;
+    background: transparent; pointer-events: none;
+    animation: rp-overlay-pulse 0.25s ease both;
+}
+@keyframes rp-overlay-pulse {
+    0% { opacity: 0.8; } 100% { opacity: 0; }
+}
+
+/* ── Header: title + period pills inline ─────────────────────────────────── */
+.rp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+/* Segmented period control */
+.rp-period-group {
+    display: flex;
+    gap: 3px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 3px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+    margin-top: 4px; /* optical alignment with page-title baseline */
+}
+.rp-period-btn {
+    padding: 7px 15px;
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+    color: var(--on-surface-variant);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+                color    0.12s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 100ms cubic-bezier(0.22, 1, 0.36, 1);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.rp-period-btn.active {
+    background: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+    font-weight: 600;
+}
+.rp-period-btn:hover:not(.active):not(:disabled) {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--on-surface);
+}
+.rp-period-btn:active:not(:disabled) { transform: scale(0.96); transition-duration: 50ms; }
+.rp-period-btn.locked,
+.rp-period-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.rp-period-lock { font-size: 11px; }
+
+/* ── Stats — editorial ordinal style ─────────────────────────────────────── */
+.rp-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+}
+.rp-stat {
+    position: relative;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 8px;
+    padding: 20px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    min-height: 120px;
+    overflow: hidden;
+    transition: border-color 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-stat:hover { border-color: var(--accent); }
+
+.rp-stat-ordinal {
+    position: absolute;
+    top: 12px; right: 16px;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--on-surface-variant);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+    transition: color 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-stat:hover .rp-stat-ordinal { color: var(--on-surface); }
+
+.rp-stat-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 80px;
+}
+.rp-stat-value {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: var(--on-surface);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    margin-top: 2px;
+}
+.rp-stat-value--name {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.rp-stat-context {
+    font-size: 12px;
+    color: var(--on-surface-muted);
+    font-variant-numeric: tabular-nums;
+    margin-top: 4px;
+}
+.rp-stat-divider {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--outline-variant);
+    margin-top: auto;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+.rp-stat-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+}
+
+/* ── Section chrome shared ───────────────────────────────────────────────── */
+.rp-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--on-surface);
+    margin: 0;
+}
+.rp-section-sub { font-size: 12px; color: var(--on-surface-muted); }
+.rp-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+/* ── Chart card ──────────────────────────────────────────────────────────── */
+.rp-chart-card {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 8px;
+    padding: 22px 24px 14px;
+    margin-bottom: 20px;
+}
+
+/* Area chart wrapper */
+.rp-chart-svg-wrap {
+    cursor: crosshair;
+    user-select: none;
+}
+
+/* SVG container — sets coordinate height so tooltip % positions map correctly */
+.rp-area-container {
+    position: relative;
+    width: 100%;
+    height: 190px;
+}
+
+/* SVG element — stretches to fill container, clips reveal animation */
+.rp-area-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+    animation: rp-chart-reveal 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes rp-chart-reveal {
+    from { clip-path: inset(0 100% 0 0 round 2px); }
+    to   { clip-path: inset(0 0%   0 0 round 2px); }
+}
+
+/* Hover tooltip — positioned absolute inside .rp-area-container */
+.rp-chart-tooltip {
+    position: absolute;
+    transform: translate(-50%, calc(-100% - 10px));
+    pointer-events: none;
+    z-index: 10;
+    background: var(--surface-container-high, rgba(22, 26, 40, 0.97));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    padding: 4px 9px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--on-surface);
+    white-space: nowrap;
+    animation: rp-tip-in 0.08s ease both;
+}
+@keyframes rp-tip-in {
+    from { opacity: 0; transform: translate(-50%, calc(-100% - 5px)); }
+    to   { opacity: 1; transform: translate(-50%, calc(-100% - 10px)); }
+}
+
+/* X-axis labels row */
+.rp-chart-xlabels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 0 1px;
+    overflow: hidden;
+}
+.rp-chart-xlabel {
+    font-size: 10.5px;
+    color: var(--on-surface-muted);
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: color 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+                font-weight 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-chart-xlabel.active { color: var(--accent-text); font-weight: 600; }
+.rp-chart-xlabel.muted  { opacity: 0.35; }
+
+/* ── Top Apps — full-width card ──────────────────────────────────────────── */
+.rp-apps-card {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+}
+.rp-apps-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.012);
+}
+.rp-app-row {
+    display: grid;
+    grid-template-columns: 28px 32px 1fr 110px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-app-row:last-child { border-bottom: none; }
+.rp-app-row:hover { background: rgba(255, 255, 255, 0.025); }
+
+.rp-app-rank {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
+.rp-app-info { flex: 1; min-width: 0; }
+.rp-app-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+.rp-app-bar-track {
+    height: 4px;
+    background: var(--outline-variant);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.rp-app-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transform-origin: left;
+    animation: rp-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes rp-grow { from { transform: scaleX(0); } to { transform: none; } }
+
+.rp-app-meta { text-align: right; flex-shrink: 0; }
+.rp-app-time {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--on-surface);
+    font-variant-numeric: tabular-nums;
+}
+.rp-app-pct {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    margin-top: 2px;
+}
+
+/* ── Bottom row: Categories + Weekday ────────────────────────────────────── */
+.rp-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.rp-panel {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* Categories */
+.rp-cats-list { display: flex; flex-direction: column; gap: 13px; }
+.rp-cat-row   { display: flex; align-items: center; gap: 10px; }
+.rp-cat-swatch { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.rp-cat-info  { flex: 1; min-width: 0; }
+.rp-cat-hrow  { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.rp-cat-name  { font-size: 13px; font-weight: 500; color: var(--on-surface); }
+.rp-cat-time  { font-size: 11px; color: var(--on-surface-muted); font-variant-numeric: tabular-nums; }
+.rp-cat-bar-track { height: 5px; background: var(--outline-variant); border-radius: 999px; overflow: hidden; }
+.rp-cat-bar-fill  {
+    height: 100%; border-radius: 999px;
+    transform-origin: left;
+    animation: rp-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rp-cat-pct {
+    font-size: 11px; font-weight: 600;
+    min-width: 34px; text-align: right;
+    font-variant-numeric: tabular-nums; flex-shrink: 0;
+}
+
+/* ── Weekday pattern — pill / capsule bars ───────────────────────────────── */
+.rp-weekday-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    height: 160px;
+}
+.rp-wd-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Time label above the capsule */
+.rp-wd-time {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--on-surface-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    min-height: 13px;
+    display: flex;
+    align-items: center;
+    transition: color 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-wd-chip.today .rp-wd-time { color: var(--accent-text); }
+
+/* Wrapper that lets capsule grow from bottom */
+.rp-wd-bar-wrap {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+@keyframes rp-bar-rise { from { height: 0 !important; } }
+
+/* The capsule — fully rounded pill, grows vertically */
+.rp-wd-capsule {
+    width: 20px;
+    border-radius: 999px;
+    background: rgba(29, 78, 216, 0.42);
+    min-height: 6px;
+    animation: rp-bar-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transition: background  0.12s cubic-bezier(0.22, 1, 0.36, 1),
+                filter      0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-wd-chip.today  .rp-wd-capsule { background: var(--accent); }
+.rp-wd-chip:hover  .rp-wd-capsule { filter: brightness(1.22); }
+
+/* Day name below */
+.rp-wd-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--on-surface-muted);
+    transition: color 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-wd-chip.today .rp-wd-label { color: var(--accent-text); font-weight: 700; }
+
+/* ── Shared empty / error states ─────────────────────────────────────────── */
+.rp-empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+    width: 100%;
+    color: var(--on-surface-muted);
+    font-size: 13px;
+    padding: 28px;
+}
+.rp-empty .material-symbols-rounded {
+    font-size: 28px;
+    opacity: 0.35;
+}
+.rp-retry {
+    padding: 7px 20px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: filter 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-retry:hover { filter: brightness(0.85); }
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .rp-area-svg,
+    .rp-wd-capsule, .rp-app-bar-fill, .rp-cat-bar-fill {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+    }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+    .rp-stats { grid-template-columns: repeat(2, 1fr); }
+    .rp-app-row { grid-template-columns: 26px 32px 1fr 100px; }
+}
+@media (max-width: 900px) {
+    .rp-bottom-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+    .rp-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .rp-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .rp-stat  { padding: 16px 16px 14px; min-height: 100px; }
+    .rp-stat-ordinal { font-size: 9px; top: 10px; right: 12px; }
+    .rp-stat-value   { font-size: 24px; }
+    .rp-stat-value--name { font-size: 16px; }
+    .rp-app-row { grid-template-columns: 26px 30px 1fr 90px; gap: 8px; padding: 8px 14px; }
+    .rp-weekday-grid { gap: 4px; }
+    .rp-wd-capsule { width: 16px; }
+}
+
+/* ── Streak Heatmap ─────────────────────────────────────────────── */
+.rp-heatmap {
+    margin-top: 20px;
+    padding: 20px 24px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 16px;
+    position: relative;
+}
+
+.rp-heatmap-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.rp-heatmap-title {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--on-surface);
+    margin-bottom: 3px;
+}
+
+.rp-heatmap-sub {
+    font-size: 11.5px;
+    color: var(--on-surface-muted);
+}
+
+.rp-streak-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 12px;
+    background: var(--accent-dim);
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+.rp-streak-pill .material-symbols-rounded {
+    font-size: 16px;
+    color: #f59e0b;
+    font-variation-settings: 'FILL' 1;
+}
+
+.rp-streak-pill-num {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--on-surface);
+    letter-spacing: -0.04em;
+}
+
+.rp-streak-pill-label {
+    font-size: 11px;
+    color: var(--on-surface-muted);
+    font-weight: 600;
+}
+
+.rp-heatmap-dow {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.rp-heatmap-dow-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--on-surface-muted);
+    text-align: center;
+    user-select: none;
+}
+
+.rp-heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.rp-heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    border: 1.5px solid transparent;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.12s ease, filter 0.12s ease;
+    position: relative;
+}
+
+.rp-heatmap-cell:hover {
+    transform: scale(1.15);
+    filter: brightness(1.2);
+    z-index: 2;
+}
+
+.rp-heatmap-cell--empty {
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+.rp-heatmap-cell--today {
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+.rp-heatmap-cell-star {
+    font-size: 8px;
+    color: #fbbf24;
+    line-height: 1;
+    user-select: none;
+}
+
+.rp-heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.rp-heatmap-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10.5px;
+    color: var(--on-surface-muted);
+}
+
+.rp-heatmap-legend-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    border: 1px solid;
+    flex-shrink: 0;
+}
+
+.rp-heatmap-tooltip {
+    position: fixed;
+    z-index: 200;
+    background: var(--surface-container-high);
+    border: 1px solid var(--outline-variant);
+    border-radius: 10px;
+    padding: 10px 12px;
+    pointer-events: none;
+    animation: rp-tip-in 0.12s ease both;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    min-width: 140px;
+}
+
+@keyframes rp-tip-in {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: none; }
+}
+
+.rp-heatmap-tooltip-date {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--on-surface);
+    margin-bottom: 4px;
+}
+
+.rp-heatmap-tooltip-score,
+.rp-heatmap-tooltip-time {
+    font-size: 11px;
+    color: var(--on-surface-muted);
+    margin-top: 2px;
+}

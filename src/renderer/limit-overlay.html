@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'none'">
+    <title>Time Limit</title>
+    <link rel="stylesheet" href="./styles/local-fonts.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { background: transparent; }
+
+        body {
+            font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, sans-serif;
+            background: transparent;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 40px);
+            overflow: hidden;
+            user-select: none;
+            -webkit-app-region: no-drag;
+        }
+
+        /* Card — Ant Design dark panel */
+        .card {
+            background: #141414;
+            border-radius: 8px;
+            width: 360px;
+            border: 1px solid #272727;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+            animation: cardIn 0.2s ease both;
+            overflow: hidden;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        @keyframes cardOut {
+            from { opacity: 1; transform: none; }
+            to   { opacity: 0; transform: translateY(6px) scale(0.97); }
+        }
+
+        .card.fade-out { animation: cardOut 0.2s ease both; }
+
+        /* Header */
+        .header {
+            padding: 24px 24px 20px;
+            border-bottom: 1px solid #272727;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-wrap {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: rgba(251, 191, 36, 0.12);
+            border: 1px solid rgba(251, 191, 36, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-wrap .material-symbols-rounded {
+            font-size: 20px;
+            color: #FBBF24;
+            font-variation-settings: 'FILL' 1, 'wght' 500;
+        }
+
+        .header-text { flex: 1; }
+
+        .title {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.88);
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+
+        .app-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid #272727;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.65);
+            margin-top: 2px;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            border-bottom: 1px solid #272727;
+        }
+
+        .stat {
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-value.used { color: #f87171; }
+        .stat-value.limit { color: rgba(255,255,255,0.88); }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.40);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        .stat-divider { background: #272727; }
+
+        /* Message */
+        .message {
+            padding: 16px 24px;
+            border-bottom: 1px solid #272727;
+        }
+
+        .message-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.6;
+        }
+
+        .extensions-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            padding: 7px 10px;
+            background: rgba(29,78,216,0.08);
+            border: 1px solid rgba(29,78,216,0.20);
+            border-radius: 4px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.50);
+        }
+
+        .extensions-info .material-symbols-rounded {
+            font-size: 14px;
+            color: #60a5fa;
+            font-variation-settings: 'FILL' 0, 'wght' 400;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Actions */
+        .actions {
+            padding: 16px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 13.5px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+        }
+
+        .btn .material-symbols-rounded {
+            font-size: 16px;
+            font-variation-settings: 'FILL' 1, 'wght' 500;
+        }
+
+        .btn-close {
+            background: rgba(255,255,255,0.88);
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+
+        .btn-close:hover { background: #ffffff; }
+
+        .btn-extend {
+            background: transparent;
+            border: 1px solid #272727;
+            color: rgba(255,255,255,0.55);
+        }
+
+        .btn-extend:hover:not(:disabled) {
+            border-color: #434343;
+            color: rgba(255,255,255,0.88);
+        }
+
+        .btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="card">
+        <div class="header">
+            <div class="header-top">
+                <div class="icon-wrap">
+                    <span class="material-symbols-rounded">schedule</span>
+                </div>
+                <div class="header-text">
+                    <div class="title">Time limit reached</div>
+                    <div class="app-badge" id="app-name">App Name</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value used" id="used-time">0m</div>
+                <div class="stat-label">Used</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <div class="stat-value limit" id="limit-time">0m</div>
+                <div class="stat-label">Limit</div>
+            </div>
+        </div>
+
+        <div class="message">
+            <p class="message-text">You've reached your daily limit. Take a break or add a few more minutes.</p>
+            <div class="extensions-info" id="extensions-info">
+                <span class="material-symbols-rounded">info</span>
+                <span id="extensions-text">3 extensions remaining today</span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-close" id="btn-break" onclick="takeBreak()">
+                <span class="material-symbols-rounded">self_improvement</span>
+                Take a break
+            </button>
+            <button class="btn btn-extend" id="btn-extend" onclick="extendTime()">
+                <span class="material-symbols-rounded">more_time</span>
+                <span id="extend-text">Add 5 minutes</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentData = null;
+
+        function formatTime(minutes) {
+            if (minutes >= 60) {
+                const h = Math.floor(minutes / 60);
+                const m = minutes % 60;
+                return m > 0 ? `${h}h ${m}m` : `${h}h`;
+            }
+            return `${minutes}m`;
+        }
+
+        function render(data) {
+            currentData = data;
+            document.getElementById('app-name').textContent = data.displayName || data.appName || 'App';
+            document.getElementById('used-time').textContent = formatTime(data.usedMinutes || 0);
+            document.getElementById('limit-time').textContent = formatTime(data.limitMinutes || 0);
+
+            const extensionsLeft = data.extensionsLeft ?? 3;
+            const extensionsEl = document.getElementById('extensions-info');
+            const extensionsText = document.getElementById('extensions-text');
+            const extendBtn = document.getElementById('btn-extend');
+
+            extensionsText.textContent = extensionsLeft > 0
+                ? `${extensionsLeft} extension${extensionsLeft !== 1 ? 's' : ''} remaining today`
+                : 'No extensions left today';
+            extensionsEl.classList.remove('hidden');
+            extendBtn.disabled = extensionsLeft <= 0;
+        }
+
+        function takeBreak() {
+            window.electronAPI?.limitsAction('dismiss', currentData?.appName);
+        }
+
+        function extendTime() {
+            const btn = document.getElementById('btn-extend');
+            if (btn.disabled || (currentData?.extensionsLeft ?? 0) <= 0) return;
+            btn.disabled = true;
+            window.electronAPI?.limitsAction('add-time', currentData?.appName, { minutes: 5 });
+        }
+
+        function fadeOut() {
+            return new Promise(resolve => {
+                document.getElementById('card').classList.add('fade-out');
+                setTimeout(resolve, 200);
+            });
+        }
+
+        window.electronAPI?.onOverlayData?.((data) => {
+            document.getElementById('card').classList.remove('fade-out');
+            render(data);
+        });
+
+        window.electronAPI?.onOverlayHide?.(async () => {
+            await fadeOut();
+            window.electronAPI?.overlayAnimationDone?.();
+        });
+
+        render({ appName: 'Loading…', usedMinutes: 0, limitMinutes: 0, extensionsLeft: 3 });
+    </script>
+</body>
+</html>

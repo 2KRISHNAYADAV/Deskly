@@ -1,0 +1,603 @@
+/* ══════════════════════════════════════════════════════════════════
+   Timeline  ·  tl- prefix
+   ══════════════════════════════════════════════════════════════════ */
+
+.tl-screen {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 0 60px;
+}
+
+/* ── Header ─────────────────────────────────────────────────────── */
+
+.tl-header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* ── Day navigation ─────────────────────────────────────────────── */
+
+.tl-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    padding: 3px 4px;
+    align-self: flex-end;
+}
+
+.tl-nav-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--on-surface-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.13s ease, color 0.13s ease, transform 60ms ease;
+    flex-shrink: 0;
+}
+
+.tl-nav-btn:hover:not(:disabled) {
+    background: var(--surface-container-high);
+    color: var(--on-surface);
+}
+
+.tl-nav-btn:active:not(:disabled) {
+    transform: scale(0.88);
+}
+
+.tl-nav-btn:disabled { opacity: 0.30; cursor: default; }
+.tl-nav-btn .material-symbols-rounded { font-size: 18px; }
+
+.tl-date-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 112px;
+    border-radius: 8px;
+    padding: 4px 10px;
+    cursor: default;
+    transition: background 0.13s ease;
+    user-select: none;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+}
+
+button.tl-date-pill { cursor: pointer; }
+button.tl-date-pill:hover { background: var(--surface-container-high); }
+
+.tl-date-text {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--on-surface);
+    line-height: 1.2;
+}
+
+.tl-today-hint {
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-top: 1px;
+}
+
+/* ── Summary chips ──────────────────────────────────────────────── */
+
+.tl-summary {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tl-summary-chip {
+    flex: 1;
+    min-width: 110px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 14px;
+    padding: 13px 16px;
+}
+
+.tl-summary-icon {
+    font-size: 18px;
+    color: var(--on-surface-muted);
+    font-variation-settings: 'FILL' 1;
+    flex-shrink: 0;
+}
+
+.tl-summary-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.tl-summary-value {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--on-surface);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
+}
+
+.tl-summary-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--on-surface-muted);
+    white-space: nowrap;
+}
+
+/* ── Section label ──────────────────────────────────────────────── */
+
+.tl-section-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--on-surface-muted);
+    opacity: 0.70;
+    margin-bottom: 10px;
+    padding-left: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Gantt timeline card
+   ═══════════════════════════════════════════════════════════════ */
+
+.tl-gantt {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 18px;
+    padding: 18px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+}
+
+/* ── Zoom indicator ─────────────────────────────────────────────── */
+
+.tl-zoom-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    align-self: flex-end;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--on-surface-muted);
+    opacity: 0.55;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+}
+
+.tl-zoom-pill .material-symbols-rounded {
+    font-size: 13px;
+}
+
+/* ── Row layout: label col (fixed) + track col (flexible) ───────── */
+
+.tl-gantt-head,
+.tl-gantt-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.tl-gantt-head {
+    margin-bottom: 6px;
+}
+
+.tl-gantt-row {
+    padding: 3px 0;
+}
+
+.tl-gantt-lcol {
+    width: 150px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+}
+
+.tl-gantt-rcol {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+}
+
+/* ── Hour ruler ─────────────────────────────────────────────────── */
+
+.tl-ruler {
+    position: relative;
+    height: 20px;
+    width: 100%;
+}
+
+.tl-ruler-mark {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tl-ruler-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--on-surface-muted);
+    white-space: nowrap;
+    user-select: none;
+    opacity: 0.55;
+    letter-spacing: 0.01em;
+}
+
+/* ── Lane labels ────────────────────────────────────────────────── */
+
+.tl-lane-tag {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--on-surface-muted);
+    opacity: 0.55;
+}
+
+.tl-lane-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    min-width: 0;
+    flex: 1;
+}
+
+/* ── Shared: vertical grid lines inside tracks ──────────────────── */
+
+.tl-gridline {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.045);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Overview bar ───────────────────────────────────────────────── */
+
+.tl-overview-track {
+    flex: 1;
+    position: relative;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.038);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.tl-overview-block {
+    position: absolute;
+    top: 8px;
+    height: calc(100% - 16px);
+    border-radius: 6px;
+    opacity: 0.88;
+    cursor: pointer;
+    transition: opacity 0.11s ease, filter 0.11s ease, transform 0.11s ease;
+    z-index: 1;
+    min-width: 5px;
+    border: none;
+    padding: 0;
+}
+
+.tl-overview-block:hover {
+    opacity: 1;
+    filter: brightness(1.15);
+    transform: scaleY(1.06);
+    z-index: 2;
+}
+
+/* ── Separator ──────────────────────────────────────────────────── */
+
+.tl-gantt-sep {
+    height: 1px;
+    background: var(--outline-variant);
+    margin: 10px 0 8px 164px; /* offset = lcol(150) + gap(14) */
+    opacity: 0.45;
+}
+
+/* ── Per-app lane tracks ────────────────────────────────────────── */
+
+.tl-lane-track {
+    flex: 1;
+    position: relative;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.022);
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.tl-lane-block {
+    position: absolute;
+    top: 5px;
+    height: calc(100% - 10px);
+    border-radius: 5px;
+    opacity: 0.84;
+    cursor: pointer;
+    transition: opacity 0.11s ease, filter 0.11s ease;
+    z-index: 1;
+    min-width: 5px;
+    border: none;
+    padding: 0;
+}
+
+.tl-lane-block:hover {
+    opacity: 1;
+    filter: brightness(1.15);
+    z-index: 2;
+}
+
+/* ── "Now" line ─────────────────────────────────────────────────── */
+
+.tl-now-line {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background: var(--accent);
+    border-radius: 1px;
+    z-index: 4;
+    box-shadow: 0 0 8px var(--accent);
+    pointer-events: none;
+}
+
+.tl-now-line::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Tooltip — always rendered fixed over everything
+   ═══════════════════════════════════════════════════════════════ */
+
+.tl-tooltip {
+    /* position, zIndex, left, top, opacity — all set inline by the component.
+       Rendered via React portal into document.body so it escapes any
+       ancestor transform stacking context. */
+    background: var(--surface-container-high);
+    border: 1px solid var(--outline-variant);
+    border-radius: 14px;
+    padding: 13px 15px;
+    box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.32),
+        0 3px 8px  rgba(0, 0, 0, 0.20),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    min-width: 200px;
+    max-width: 270px;
+    pointer-events: none;
+    transition: opacity 0.14s ease;
+}
+
+.tl-tip-header {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--outline-variant);
+}
+
+.tl-tip-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--on-surface);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.1;
+}
+
+.tl-tip-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--on-surface-muted);
+    margin-bottom: 5px;
+}
+
+.tl-tip-row:last-of-type { margin-bottom: 0; }
+
+.tl-tip-row .material-symbols-rounded {
+    font-size: 14px;
+    flex-shrink: 0;
+    opacity: 0.65;
+}
+
+.tl-tip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.tl-tip-subtitle {
+    font-size: 10.5px;
+    color: var(--on-surface-muted);
+    opacity: 0.65;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--outline-variant);
+    line-height: 1.45;
+    font-style: italic;
+}
+
+/* ── Empty state ────────────────────────────────────────────────── */
+
+.tl-empty-state {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 16px;
+    color: var(--on-surface-muted);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.tl-empty-state .material-symbols-rounded { font-size: 22px; opacity: 0.55; }
+
+/* ── Category breakdown ─────────────────────────────────────────── */
+
+.tl-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tl-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    transition: background 0.13s ease;
+}
+
+.tl-legend-item:hover { background: var(--surface-container-high); }
+
+.tl-legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.tl-legend-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--on-surface);
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+.tl-legend-bar-wrap {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    min-width: 40px;
+}
+
+.tl-legend-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tl-legend-pct {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--on-surface-muted);
+    min-width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.tl-legend-time {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--on-surface-muted);
+    min-width: 44px;
+    text-align: right;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Show more / collapse button ────────────────────────────────── */
+
+.tl-show-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 12px 5px 8px;
+    background: transparent;
+    border: 1px solid var(--outline-variant);
+    border-radius: 8px;
+    color: var(--on-surface-muted);
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin: 6px 0 2px;
+    transition: background 0.13s ease, color 0.13s ease;
+}
+
+.tl-show-more:hover {
+    background: var(--surface-container-high);
+    color: var(--on-surface);
+}
+
+.tl-show-more:active { transform: scale(0.96); transition-duration: 60ms; }
+
+.tl-show-more .material-symbols-rounded { font-size: 16px; }
+
+/* ── Loading ────────────────────────────────────────────────────── */
+
+.tl-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 220px;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+    .tl-overview-block,
+    .tl-lane-block,
+    .tl-nav-btn,
+    .tl-date-pill,
+    .tl-legend-item   { transition: none !important; }
+    .tl-tooltip       { animation: none !important; }
+    .tl-legend-bar    { transition: none !important; }
+}
